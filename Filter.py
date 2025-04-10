@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 import re
@@ -96,7 +97,10 @@ chat_word = {
     'CSL': "Can't stop laughing"
 }
 def filter_text():
-    df = pd.read_csv("C:\\Users\\Yash\Documents\\Code\\Python\\Sentiment_Analysis\\Final\\tweets.csv")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    csv_path = os.path.join(BASE_DIR, 'tweets.csv')
+    
+    df = pd.read_csv("csv_path")
     #train_data = pd.read_csv("C:\\Users\\Yash\\Desktop\\Major Project\\twitter_validation.csv")
     with open('Filtered.csv', 'w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)

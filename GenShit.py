@@ -54,10 +54,10 @@ def Topic_Based_Get_Response(topic:str, tweet:str):
 
     chat_session = model.start_chat()
     #response = chat_session.send_message("define a goal in football ")
-    #response = chat_session.send_message(f"Given Below is a topic and a you have to tell me the sentiment of this Topic {topic,tweet}and Structure the response")
+    response = chat_session.send_message(f"Given Below is a topic and a you have to tell me the sentiment of this Topic {topic,tweet}")
     #content = response.result[0]['text']
-    #content = response._result.candidates[0].content.parts[0].text
-    prompt = f"Analyze the sentiment surrounding '{topic,tweet}' and structure the response."
+    content = response._result.candidates[0].content.parts[0].text
+  '''  prompt = f"Analyze the sentiment surrounding '{topic,tweet}' and structure the response."
     content = chat_session.send_message(prompt)
     raw_output = content._result.candidates[0].content.parts[0].text
     # Process the API response (assuming it returns plain text)
@@ -72,9 +72,9 @@ def Topic_Based_Get_Response(topic:str, tweet:str):
     }
 
     # Splitting Gemini response into sections (assuming structured text format)
-    sections = raw_output.split("\n\n")
+    sections = raw_output.split("\n\n")'''
     
-    for section in sections:
+   ''' for section in sections:
         if "Negative Sentiment" in section:
             sentiment_data["categories"]["Negative Sentiment"] = section.split("\n")[1:]
         elif "Positive Sentiment" in section:
@@ -84,8 +84,8 @@ def Topic_Based_Get_Response(topic:str, tweet:str):
         elif "Summary" in section:
             sentiment_data["summary"] = section.replace("Summary:", "").strip()
         elif "Conclusion" in section:
-            sentiment_data["conclusion"] = section.replace("Conclusion:", "").strip()
+            sentiment_data["conclusion"] = section.replace("Conclusion:", "").strip()'''
 
-    return sentiment_data  ##returns the response from the model with description in the form of string
+    return content  ##returns the response from the model with description in the form of string
 
 

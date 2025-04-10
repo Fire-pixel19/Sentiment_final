@@ -27,7 +27,7 @@ def File_Based_Get_Response():
 
     chat_session = model.start_chat()
     #response = chat_session.send_message("define a goal in football ")
-    response = chat_session.send_message(f"Given Below are a bunch of strings you have to tell me the sentiment of this string this{df['tweet']}and tell me the reason of why you think about the same also the emojies in the text are converted into unicode ")
+    response = chat_session.send_message(f"Given Below are a bunch of strings you have to tell me the sentiment of this string this{df['tweet']}and tell me the reason of why you think about the same ")
     #content = response.result[0]['text']
     content = response._result.candidates[0].content.parts[0].text
 

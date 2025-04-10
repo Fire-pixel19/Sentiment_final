@@ -68,7 +68,7 @@ def Scrape_Tweets(QUERY):
             writer.writeheader()
 
         # Load cookies
-        client.load_cookies('cookies')
+        client.load_cookies(cookies)
 
         while tweet_count < MINIMUM_TWEETS:
             try:

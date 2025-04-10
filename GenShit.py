@@ -11,7 +11,7 @@ def File_Based_Get_Response():
     
     df = pd.read_csv(tweet_path)
 
-    # Create the model
+      # Create the model
     generation_config = {
       "temperature": 1,
       "top_p": 0.95,
@@ -54,27 +54,27 @@ def Topic_Based_Get_Response(topic:str, tweet:str):
 
     chat_session = model.start_chat()
     #response = chat_session.send_message("define a goal in football ")
-    response = chat_session.send_message(f"Given Below is a topic and a you have to tell me the sentiment of this Topic {topic,tweet}")
+    response = chat_session.send_message(f"Given Below is a topic and a you have to tell me the sentiment of this Topic {topic,tweet}and Structure the response")
     #content = response.result[0]['text']
     content = response._result.candidates[0].content.parts[0].text
-  '''  prompt = f"Analyze the sentiment surrounding '{topic,tweet}' and structure the response."
-    content = chat_session.send_message(prompt)
-    raw_output = content._result.candidates[0].content.parts[0].text
+    #prompt = f"Analyze the sentiment surrounding '{topic,tweet}' and structure the response."
+    #content = chat_session.send_message(prompt)
+    #raw_output = content._result.candidates[0].content.parts[0].text
     # Process the API response (assuming it returns plain text)
     #raw_output = response.text
 
     # Structure the output dynamically
-    sentiment_data = {
+    '''sentiment_data = {
         "title": f"Sentiment Analysis of '{topic}'",
         "summary": "",
         "categories": {},
         "conclusion": ""
-    }
+    }'''
 
     # Splitting Gemini response into sections (assuming structured text format)
-    sections = raw_output.split("\n\n")'''
+    '''sections = raw_output.split("\n\n")
     
-   ''' for section in sections:
+    for section in sections:
         if "Negative Sentiment" in section:
             sentiment_data["categories"]["Negative Sentiment"] = section.split("\n")[1:]
         elif "Positive Sentiment" in section:
@@ -86,6 +86,5 @@ def Topic_Based_Get_Response(topic:str, tweet:str):
         elif "Conclusion" in section:
             sentiment_data["conclusion"] = section.replace("Conclusion:", "").strip()'''
 
-    return content  ##returns the response from the model with description in the form of string
-
+    return content ##returns the response from the model with description in the form of string
 

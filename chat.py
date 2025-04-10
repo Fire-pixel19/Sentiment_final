@@ -6,6 +6,7 @@ from configparser import ConfigParser
 from random import randint
 import pandas as pd
 from textblob import TextBlob
+import os
 
 def Scrape_Tweets(QUERY):
     if QUERY==None:
@@ -13,10 +14,13 @@ def Scrape_Tweets(QUERY):
     else:
             QUERY=QUERY
             
-
+    
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    config_path = os.path.join(BASE_DIR, 'config.ini')
+    cookies = os.path.join(BASE_DIR, 'cookies.json')
     # Load configuration
     config = ConfigParser()
-    config.read('C://Users//Yash//Documents//Code//Python//Sentiment_Analysis//config.ini')
+    config.read(config_path)
 
 
 
@@ -64,7 +68,7 @@ def Scrape_Tweets(QUERY):
             writer.writeheader()
 
         # Load cookies
-        client.load_cookies('cookies.json')
+        client.load_cookies('cookies')
 
         while tweet_count < MINIMUM_TWEETS:
             try:

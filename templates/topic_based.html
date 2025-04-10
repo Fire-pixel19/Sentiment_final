@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sentiments</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900&amp;family=Work+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body class="min-h-screen bg-[#f8fafb] flex flex-col" style='font-family: "Work Sans", "Noto Sans", sans-serif;'>
+    <header class="flex items-center justify-between border-b border-[#e8eef3] px-10 py-3">
+      <div class="flex items-center gap-4 text-[#0e161b]">
+        <div>
+          <svg viewBox="0 0 48 48" class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"
+            ></path>
+          </svg>
+        </div>
+        <h2 class="text-lg font-bold">Sentiment</h2>
+      </div>
+      <nav class="flex gap-6 text-sm font-medium">
+        <a href="#" class="hover:underline">Services</a>
+        <a href="#" class="hover:underline">Pricing</a>
+        <a href="#" class="hover:underline">Resources</a>
+        <a href="#" class="hover:underline">Documentation</a>
+      </nav>
+      <div class="flex gap-2">
+        <button class="h-10 px-4 rounded-xl bg-[#1d8cd7] text-white font-bold">Sign in</button>
+        <button class="h-10 px-4 rounded-xl bg-[#e8eef3] text-[#0e161b] font-bold">Get started</button>
+      </div>
+    </header>
+    <main class="flex-1 flex items-center justify-center py-10">
+      <div class="w-full max-w-md bg-white p-8 shadow-md rounded-lg">
+        <h3 class="text-center text-2xl font-bold text-[#0e161b] mb-4">Analyze Sentiment</h3>
+        <p class="text-center text-base text-[#0e161b] mb-6">
+          Use our models to analyze the sentiment of a piece of text.
+        </p>
+        <form id="analyze-form" class="space-y-4">
+          <div>
+            <label for="topic" class="block text-sm font-medium text-[#0e161b]">Enter a topic</label>
+            <input
+              type="text"
+              id="topic"
+              name="topic"
+              placeholder="Enter a topic"
+              class="w-full h-12 px-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1d8cd7] bg-[#f8fafb]"
+              required
+            />
+          </div>
+      <button
+      type="submit"
+      class="w-full h-12 bg-[#1d8cd7] text-white font-bold rounded-lg hover:bg-[#166fab] transition"
+    >
+      Analyze
+    </button>
+      <div class="mt-6">
+        <label for="result" class="block text-sm font-medium text-[#0e161b]">Analyzed Sentiment:</label>
+          <div
+          id="result"
+          class="w-full p-4 border rounded-lg bg-[#f8fafb] text-[#0e161b] whitespace-pre-wrap"
+        ></div>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+      document.getElementById('analyze-form').addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const topic = document.getElementById('topic').value;
+        try {
+          const response = await fetch('/analyze1', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ topic }),
+          });
+          const result = await response.json();
+    
+          document.getElementById('result').innerHTML = result.success
+              ? (document.getElementById('result').innerHTML = marked.parse(result.data))
+              : (document.getElementById('result').innerHTML = `<p class="text-red-500">Error: ${result.error}</p>`);
+            console.log(result.data);
+        } catch (error) {
+          document.getElementById('result').innerHTML = `<p class="text-red-500">Error: ${error.message}</p>`;
+        }
+      });
+    </script>
+</body>
+</html>

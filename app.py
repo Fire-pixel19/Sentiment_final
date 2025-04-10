@@ -35,8 +35,8 @@ def Tweet_Based_Sentiment():     ##this function exclusively Analyzes the sentim
             result = GenShit.Topic_Based_Get_Response(topic,tweet)
 
 
-        #return jsonify({'success': True, 'data': result})
-        return render_template('TopicBased.html',result=result)
+        return jsonify({'success': True, 'data': result})
+        #return render_template('TopicBased.html',result=result)
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

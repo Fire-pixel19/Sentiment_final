@@ -6,8 +6,10 @@ from dotenv import load_dotenv,find_dotenv
 def File_Based_Get_Response():
     _ = load_dotenv(find_dotenv())
     genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-
-    df = pd.read_csv(r"C:\Users\Yash\Documents\Code\Python\Sentiment_Analysis\Final\Filtered.csv")
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    tweet_path = os.path.join(BASE_DIR, 'Filtered.csv')
+    
+    df = pd.read_csv(tweet_path)
 
     # Create the model
     generation_config = {

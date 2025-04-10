@@ -11,12 +11,12 @@ def index():
 
 @app.route('/topic')
 def topic_based():
-    return "Topic Based Sentiment Analysis Page (Coming Soon)"
+    return render_template('topic_based.html')  # First webpage
     
 
 @app.route('/tweet')
 def tweet_based():
-    return render_template('TopicBased.html')  # Second webpage
+    return render_template('tweet_based.html')  # Second webpage
 
 
 @app.route('/analyze', methods=['POST'])
@@ -36,7 +36,27 @@ def Tweet_Based_Sentiment():     ##this function exclusively Analyzes the sentim
 
 
         return jsonify({'success': True, 'data': result})
-        #return render_template('TopicBased.html',result=result)
+        #return render_template('TopicBased.html')
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/analyze1', methods=['POST'])
+def Topic_Based_Sentiment():     ##this function exclusively Analyzes the sentiments of the tweet given by the user
+
+    topic = request.json.get('topic')  # Get the topic from the frontend
+    if not topic:
+        return jsonify({'error': 'Topic is required'}), 400
+    try:
+        if not(isinstance(topic,str )): 
+            raise ValueError('Please provide a query to search for tweets')
+        else:
+            chat.Scrape_Tweets(topic)
+            filter.filter_text()
+            result = GenShit.File_Based_Get_Response()
+
+
+        return jsonify({'success': True, 'data': result})
+        #return render_template('TopicBased.html')
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 

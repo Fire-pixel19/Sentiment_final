@@ -1,6 +1,6 @@
 import chat as chat
 import Filter as filter
-import GenShit as GenShit
+import Gemini as GenShit
 from flask import Flask, request, jsonify,render_template 
 
 app = Flask(__name__)
@@ -75,3 +75,4 @@ if __name__ == '__main__':
     print(GenShit.File_Based_Get_Response())'''
 
     
+

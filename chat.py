@@ -65,11 +65,7 @@ def Scrape_Tweets(QUERY):
             writer = csv.DictWriter(file, fieldnames=['tweet', 'sentiment'])
             writer.writeheader()
 
-        await client.login(
-            auth_info_1=config['X']['USERNAME'],
-            auth_info_2=config['X']['EMAIL'],
-            password=config['X']['PASSWORD'],    
-    )
+        client.load_cookies("cookies.json")
 
         while tweet_count < MINIMUM_TWEETS:
             try:
@@ -96,4 +92,5 @@ def Scrape_Tweets(QUERY):
 
 
         
+
 
